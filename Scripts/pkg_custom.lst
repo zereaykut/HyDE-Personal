@@ -1,0 +1,76 @@
+# --------------------------------------------------- // System
+# downgrade                                             # downgrade packages
+# trash-cli-git                                         # cli to manage trash files
+# libinput-gestures                                     # actions touchpad gestures using libinput
+# gestures                                              # gui for libinput-gestures
+# wttrbar                                               # for weather
+# python-requests|wttrbar                               # script dependency
+
+# --------------------------------------------------- // Dependencies
+xdg-desktop-portal-gtk                                 # xdg desktop portal using gtk
+# emote                                                 # emoji picker gtk3
+
+# --------------------------------------------------- // Gaming
+steam                                                  # gaming platform
+gamemode                                               # daemon and library for game optimizations
+mangohud                                               # system performance overlay
+# gamescope                                             # micro-compositor for gaming
+
+# --------------------------------------------------- // Music
+# cava                                                  # audio visualizer
+# spotify                                               # proprietary music streaming service
+# spicetify-cli                                         # cli to customize spotify client
+
+# --------------------------------------------------- // Neovim
+neovim                                                # vim based text editor 
+npm
+unzip
+
+# --------------------------------------------------- // Apps
+gimp                                                  # image manipulation program
+bitwarden                                             # password manager
+gwenview                                              # imageviewer
+qbittorrent                                           # torrent client
+thunderbird                                           # mail client
+notepadqq                                             # code editor
+obs-studio                                            # screen recorder
+okular                                                # document viewer
+qalculate-gtk                                         # calculator
+timeshift                                             # backup manager
+
+# --------------------------------------------------- // Terminal
+atuin                                                 # search shell history better
+btop                                                  # resource monitor
+dust                                                  # du + rust = dust. Like du but more intuitive.
+fd                                                    # faster, colorized alternative to find
+bat                                                   # a cat(1) clone with syntax highlighting and Git integration
+zoxide                                                # a smarter cd command, inspired by z and autojump.
+fzf                                                   # fuzzy finder
+
+# --------------------------------------------------- // Firewall
+firewalld                                             # firewall daemon
+
+# --------------------------------------------------- // Hyprland Plugin
+meson
+cmake
+cpio
+hyprwayland-scanner
+
+# --------------------------------------------------- // Shell
+# oh-my-zsh-git|zsh                                      # Optional plugin manager for zsh
+# pokemon-colorscripts-git|zsh                           # display pokemon sprites (optional)
+
+# --------------------------------------------------- // Editor
+vscodium-bin                                          # Full oss text editor
+# vscodium-bin-marketplace|vscodium-bin                 # VSCodium marketplace
+# code-marketplace|code                                 # Code-Oss marketplace
+# visual-studio-code-bin                                # MS  text editor
+
+# --------------------------------------------------- // Backends
+#electron                                              # electron backend
+
+# --------------------------------------------------- // Lockscreen
+#swaylock-effects-git                                   # swaylock with effects // very minimal lockscreen
+
+# --------------------------------------------------- // OSD
+# swayosd-git                                             #A GTK based on screen display for keyboard shortcuts like caps-lock and volume
