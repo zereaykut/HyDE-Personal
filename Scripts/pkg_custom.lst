@@ -40,7 +40,6 @@ timeshift                                             # backup manager
 
 # --------------------------------------------------- // Terminal
 atuin                                                 # search shell history better
-btop                                                  # resource monitor
 dust                                                  # du + rust = dust. Like du but more intuitive.
 fd                                                    # faster, colorized alternative to find
 bat                                                   # a cat(1) clone with syntax highlighting and Git integration
