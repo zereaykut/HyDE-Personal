@@ -20,6 +20,8 @@ pacman = [
     "pipewire-jack",
     "pipewire-alsa",
     "gst-plugin-pipewire",
+    "sof-firmware",
+    "alsa-firmware",
     "wireplumber",
     "pavucontrol",
 ]
