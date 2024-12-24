@@ -1,0 +1,8 @@
+    "disk": {
+      "interval": 30,
+      "format": " {percentage_used:2}%",
+      "tooltip-format": "Path: {path}\nFree: {free}\nUsed: {used}\nTotal: {total}",
+      "path": "/",
+      "rotate": ${r_deg},
+    },
+

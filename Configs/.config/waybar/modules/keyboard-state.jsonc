@@ -1,0 +1,10 @@
+    "keyboard-state": {
+        "numlock": false,
+        "capslock": true,
+        "format": "{icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        },
+        "rotate": ${r_deg},
+    },

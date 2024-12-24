@@ -1,0 +1,18 @@
+    "custom/power-profiles-daemon": {
+        "format" : "{}",
+        "exec": "power_profiles.sh",
+        "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "exec-if": "exit 0",
+        "return-type": "json",
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/data/power-profiles-daemon-menu.xml",
+        "menu-actions": {
+            "performance": "powerprofilesctl set performance",
+            "balanced": "powerprofilesctl set balanced",
+            "power-saver": "powerprofilesctl set power-saver"
+                },
+        "rotate": ${r_deg},
+    },
+
