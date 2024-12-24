@@ -5,8 +5,8 @@ pipewire-audio                                         # pipewire audio client
 pipewire-jack                                          # pipewire jack client
 pipewire-pulse                                         # pipewire pulseaudio client
 gst-plugin-pipewire                                    # pipewire gstreamer client
-sof-firmware
-alsa-firmware
+sof-firmware                                           # sound open firmware
+alsa-firmware                                          # alsa-tools and hotplug firmware loader
 wireplumber                                            # pipewire session manager
 pavucontrol                                            # pulseaudio volume control
 pamixer                                                # pulseaudio cli mixer
