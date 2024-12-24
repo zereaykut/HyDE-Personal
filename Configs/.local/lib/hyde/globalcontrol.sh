@@ -122,8 +122,8 @@ get_themes() {
 }
 
 [ -f "${HYDE_RUNTIME_DIR}/environment" ] && source "${HYDE_RUNTIME_DIR}/environment"
-[ -f "${XDG_STATE_HOME}/hyde/config" ] && source "${XDG_STATE_HOME}/hyde/config"
-[ -f "${XDG_STATE_HOME}/hyde/staterc" ] && source "${XDG_STATE_HOME}/hyde/staterc"
+[ -f "$HYDE_STATE_HOME/config" ] && source "$HYDE_STATE_HOME/config"
+[ -f "$HYDE_STATE_HOME/staterc" ] && source "$HYDE_STATE_HOME/staterc"
 
 case "${enableWallDcol}" in
 0 | 1 | 2 | 3) ;;
@@ -319,15 +319,17 @@ get_hyprConf() {
 }
 
 # Rofi spawn location
-get_rofi_follow_mouse() {
+get_rofi_pos() {
     readarray -t curPos < <(hyprctl cursorpos -j | jq -r '.x,.y')
-    readarray -t monRes < <(hyprctl -j monitors | jq '.[] | select(.focused==true) | .width,.height,.scale,.x,.y')
-    readarray -t offRes < <(hyprctl -j monitors | jq -r '.[] | select(.focused==true).reserved | map(tostring) | join("\n")')
+    eval "$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) |
+        "monRes=(\(.width) \(.height) \(.scale) \(.x) \(.y)) offRes=(\(.reserved | join(" ")))"')"
+
     monRes[2]="${monRes[2]//./}"
     monRes[0]=$((monRes[0] * 100 / monRes[2]))
     monRes[1]=$((monRes[1] * 100 / monRes[2]))
     curPos[0]=$((curPos[0] - monRes[3]))
     curPos[1]=$((curPos[1] - monRes[4]))
+    offRes=("${offRes// / }")
 
     if [ "${curPos[0]}" -ge "$((monRes[0] / 2))" ]; then
         local x_pos="east"
