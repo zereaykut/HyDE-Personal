@@ -37,6 +37,7 @@ hyprpicker                                             # color picker
 slurp                                                  # region select for screenshot/screenshare
 swappy                                                 # screenshot editor
 cliphist                                               # clipboard manager
+hyprland-qtutils                                       # Qt/QML utility apps for Hyprland
 
 # --------------------------------------------------- // Dependencies
 polkit-gnome                                           # authentication agent
@@ -71,13 +72,13 @@ vim                                                    # terminal text editor
 nwg-displays                                           # monitor management utility
 
 # --------------------------------------------------- // Shell
-eza|zsh                                                # file lister for zsh
-# oh-my-zsh-git|zsh                                    #  plugin manager for zsh (Optional)
-zsh-theme-powerlevel10k-git|zsh          # theme for zsh
+# eza|zsh                                               # file lister for zsh
+# oh-my-zsh-git|zsh                                     # plugin manager for zsh (Optional)
+# zsh-theme-powerlevel10k-git|zsh                       # theme for zsh
 eza|fish                                               # file lister for fish
 starship|fish                                          # customizable shell prompt
 fastfetch                                              # system information fetch tool
-pokego-bin|zsh                                        # display pokemon sprites in terminal (written GO)
+# pokego-bin|zsh                                         # display pokemon sprites in terminal (written GO)
 
 # --------------------------------------------------- // HyDE
 # hyde-cli-git                                           # cli tool to manage hyde \\ Deprecated for HyDE
