@@ -36,37 +36,22 @@ get_hashmap() {
     unset skipStrays
     unset verboseMap
 
-    validSources=()
     for wallSource in "$@"; do
         [ -z "${wallSource}" ] && continue
-        case "${wallSource}" in
-        --skipstrays) skipStrays=1 ;;
-        --verbose) verboseMap=1 ;;
-        *) validSources+=("${wallSource}") ;;
-        esac
+        [ "${wallSource}" == "--skipstrays" ] && skipStrays=1 && continue
+        [ "${wallSource}" == "--verbose" ] && verboseMap=1 && continue
+
+        hashMap=$(find "${wallSource}" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec "${hashMech}" {} + | sort -k2)
+        if [ -z "${hashMap}" ]; then
+            echo "WARNING: No image found in \"${wallSource}\""
+            continue
+        fi
+
+        while read -r hash image; do
+            wallHash+=("${hash}")
+            wallList+=("${image}")
+        done <<<"${hashMap}"
     done
-
-    if [ ${#validSources[@]} -eq 0 ]; then
-        echo "ERROR: No valid image sources provided"
-        exit 1
-    fi
-
-    # 200ms reduction
-    # hashMap=$(find "${validSources[@]}" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 | xargs -0 "${hashMech}" | sort -k2)
-
-    # if [ -z "${hashMap}" ]; then
-    #     echo "WARNING: No images found in the provided sources:"
-    #     for source in "${validSources[@]}"; do
-    #         num_files=$(find "${source}" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | wc -l)
-    #         echo " x ${source} - ${num_files} files"
-    #     done
-    #     exit 1
-    # fi
-
-    while read -r hash image; do
-        wallHash+=("${hash}")
-        wallList+=("${image}")
-    done <<<"$(find "${validSources[@]}" -type f \( -iname "*.gif" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -print0 | xargs -0 "${hashMech}" | sort -k2)"
 
     if [ -z "${#wallList[@]}" ] || [[ "${#wallList[@]}" -eq 0 ]]; then
         if [[ "${skipStrays}" -eq 1 ]]; then
@@ -318,7 +303,7 @@ get_hyprConf() {
 
 }
 
-# Rofi spawn location
+# rofi spawn location
 get_rofi_pos() {
     readarray -t curPos < <(hyprctl cursorpos -j | jq -r '.x,.y')
     eval "$(hyprctl -j monitors | jq -r '.[] | select(.focused==true) |
@@ -354,7 +339,7 @@ get_rofi_pos() {
 #? handle pasting
 paste_string() {
     if ! command -v wtype >/dev/null; then exit 0; fi
-    ignore_paste_file=${cacheDir}/landing/ignore.paste
+    ignore_paste_file="$HYDE_STATE_HOME/ignore.paste"
 
     if [[ ! -e "${ignore_paste_file}" ]]; then
         cat <<EOF >"${ignore_paste_file}"
@@ -373,4 +358,24 @@ EOF
     if ! grep -q "${class}" "${ignore_paste_file}"; then
         hyprctl -q dispatch exec 'wtype -M ctrl V -m ctrl'
     fi
+}
+
+#? Checks if the cursor is hovered on a window
+is_hovered() {
+    data=$(hyprctl --batch -j "cursorpos;activewindow" | jq -s '.[0] * .[1]')
+    # evaulate the output of the JSON data into shell variables
+    eval "$(echo "$data" | jq -r '@sh "cursor_x=\(.x) cursor_y=\(.y) window_x=\(.at[0]) window_y=\(.at[1]) window_size_x=\(.size[0]) window_size_y=\(.size[1])"')"
+
+    # Handle variables in case they are null
+    cursor_x=${cursor_x:-$(jq -r '.x // 0' <<<"$data")}
+    cursor_y=${cursor_y:-$(jq -r '.y // 0' <<<"$data")}
+    window_x=${window_x:-$(jq -r '.at[0] // 0' <<<"$data")}
+    window_y=${window_y:-$(jq -r '.at[1] // 0' <<<"$data")}
+    window_size_x=${window_size_x:-$(jq -r '.size[0] // 0' <<<"$data")}
+    window_size_y=${window_size_y:-$(jq -r '.size[1] // 0' <<<"$data")}
+    # Check if the cursor is hovered in the active window
+    if ((cursor_x >= window_x && cursor_x <= window_x + window_size_x && cursor_y >= window_y && cursor_y <= window_y + window_size_y)); then
+        return 0
+    fi
+    return 1
 }
